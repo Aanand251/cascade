@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: file-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cascade_db
+    username: cascade_app
+    password: ${DB_PASSWORD}
+
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
