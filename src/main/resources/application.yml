@@ -11,6 +11,11 @@ spring:
       maximum-pool-size: 10
       minimum-idle: 2
 
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
   jpa:
     open-in-view: false
     hibernate:
@@ -22,6 +27,28 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+app:
+  frontend-url: http://localhost:3000
+
+  storage:
+    s3:
+      bucket: cascade-file-storage-533951098274-eu-north-1-an
+      region: eu-north-1
+
+  file:
+    max-size-bytes: 10485760
+    allowed-content-types: image/jpeg,image/png,application/pdf,text/plain
+
+  jwt:
+    access-token-expiration-minutes: 15
+
+  email-verification:
+    expiration-minutes: 30
+
+  bootstrap-admin:
+    enabled: ${BOOTSTRAP_ADMIN_ENABLED:false}
+    email: ${BOOTSTRAP_ADMIN_EMAIL:}
 
 server:
   port: 8080
