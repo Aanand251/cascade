@@ -115,6 +115,14 @@
 		</dependency>
 
 
+		<!-- AWS S3 Presigner -->
+<!--		<dependency>-->
+<!--			<groupId>software.amazon.awssdk</groupId>-->
+<!--			<artifactId>s3-presigner</artifactId>-->
+<!--			<version>${aws.sdk.version}</version>-->
+<!--		</dependency>-->
+
+
 		<!-- =============================== -->
 		<!-- Lombok                           -->
 		<!-- =============================== -->

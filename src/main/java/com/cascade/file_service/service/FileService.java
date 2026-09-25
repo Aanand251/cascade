@@ -36,4 +36,12 @@ public class FileService {
                 ownerId
         );
     }
+
+    public File getActiveFileForOwner(Long fileId, Long ownerId) {
+        return fileRepository
+                .findByIdAndOwnerId(fileId, ownerId)
+                .filter(file -> file.getStatus() == FileStatus.ACTIVE)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("File not found"));
+    }
 }

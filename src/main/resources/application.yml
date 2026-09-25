@@ -35,6 +35,7 @@ app:
     s3:
       bucket: cascade-file-storage-533951098274-eu-north-1-an
       region: eu-north-1
+      download-url-expiration-minutes: 5
 
   file:
     max-size-bytes: 10485760
