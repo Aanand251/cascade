@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 
 import java.io.InputStream;
 import java.time.Duration;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +75,15 @@ public class S3StorageService {
 
     public long getDownloadUrlExpirationSeconds() {
         return downloadUrlExpirationMinutes * 60;
+    }
+
+    public void delete(String objectKey) {
+
+        DeleteObjectRequest request = DeleteObjectRequest.builder()
+                .bucket(bucket)
+                .key(objectKey)
+                .build();
+
+        s3Client.deleteObject(request);
     }
 }

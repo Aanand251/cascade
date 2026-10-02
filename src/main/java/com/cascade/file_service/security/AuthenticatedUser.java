@@ -3,6 +3,8 @@ package com.cascade.file_service.security;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 
+import java.util.Objects;
+
 public final class AuthenticatedUser {
 
     private AuthenticatedUser() {
@@ -18,6 +20,6 @@ public final class AuthenticatedUser {
             );
         }
 
-        return Long.valueOf(jwt.getSubject());
+        return Long.valueOf(Objects.requireNonNull(jwt.getSubject()));
     }
 }

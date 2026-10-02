@@ -1,5 +1,4 @@
 package com.cascade.file_service.service;
-
 import com.cascade.file_service.entity.File;
 import com.cascade.file_service.entity.FileStatus;
 import com.cascade.file_service.entity.User;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -114,9 +112,7 @@ public class FileUploadService {
         if (filename == null || filename.isBlank()) {
             return "unnamed";
         }
-
         String sanitized = filename.replace("\\", "/");
-
         sanitized = sanitized.substring(
                 sanitized.lastIndexOf('/') + 1
         );
@@ -124,7 +120,6 @@ public class FileUploadService {
         sanitized = sanitized
                 .replaceAll("[\\r\\n]", "_")
                 .trim();
-
         if (sanitized.isBlank()) {
             return "unnamed";
         }
