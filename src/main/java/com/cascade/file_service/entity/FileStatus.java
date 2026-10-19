@@ -4,5 +4,6 @@ public enum FileStatus {
 
     PENDING,
     ACTIVE,
+    DELETING,
     DELETED
 }

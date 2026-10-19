@@ -3,6 +3,7 @@ package com.cascade.file_service.service;
 import com.cascade.file_service.dto.FileResponse;
 import com.cascade.file_service.entity.File;
 import com.cascade.file_service.entity.FileStatus;
+import com.cascade.file_service.exception.ResourceNotFoundException;
 import com.cascade.file_service.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,10 +27,7 @@ public class FileService {
     }
 
     public boolean existsForOwner(Long fileId, Long ownerId) {
-        return fileRepository.existsByIdAndOwnerId(
-                fileId,
-                ownerId
-        );
+        return fileRepository.existsByIdAndOwnerId(fileId, ownerId);
     }
 
     public File getActiveFileForOwner(Long fileId, Long ownerId) {
@@ -37,29 +35,11 @@ public class FileService {
                 .findByIdAndOwnerId(fileId, ownerId)
                 .filter(file -> file.getStatus() == FileStatus.ACTIVE)
                 .orElseThrow(() ->
-                        new IllegalArgumentException("File not found"));
+                        new ResourceNotFoundException("File not found"));
     }
 
     public FileResponse getFileResponseForOwner(Long fileId, Long ownerId) {
-        File file = fileRepository
-                .findByIdAndOwnerId(fileId, ownerId)
-                .filter(existingFile -> existingFile.getStatus() == FileStatus.ACTIVE)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("File not found"));
-
+        File file = getActiveFileForOwner(fileId, ownerId);
         return FileResponse.from(file);
-    }
-
-    @Transactional
-    public void deleteFile(Long fileId, Long ownerId) {
-
-        File file = fileRepository
-                .findByIdAndOwnerId(fileId, ownerId)
-                .filter(existingFile -> existingFile.getStatus() == FileStatus.ACTIVE)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("File not found"));
-
-        file.setStatus(FileStatus.DELETED);
-        fileRepository.save(file);
     }
 }
