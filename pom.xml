@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<!-- Spring Boot -->
+	<!-- =============================== -->
+	<!-- Spring Boot                     -->
+	<!-- =============================== -->
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -13,7 +17,11 @@
 		<relativePath/>
 	</parent>
 
-	<!-- Project Information -->
+
+	<!-- =============================== -->
+	<!-- Project Information             -->
+	<!-- =============================== -->
+
 	<groupId>com.cascade</groupId>
 	<artifactId>file-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -21,17 +29,25 @@
 	<name>cascade-file-service</name>
 	<description>Production file storage and upload service</description>
 
-	<!-- Java -->
+
+	<!-- =============================== -->
+	<!-- Properties                      -->
+	<!-- =============================== -->
+
 	<properties>
 		<java.version>21</java.version>
-
-		<!-- AWS SDK -->
 		<aws.sdk.version>2.36.0</aws.sdk.version>
+		<jacoco.version>0.8.12</jacoco.version>
 	</properties>
 
-	<!-- AWS SDK BOM -->
+
+	<!-- =============================== -->
+	<!-- AWS SDK BOM                     -->
+	<!-- =============================== -->
+
 	<dependencyManagement>
 		<dependencies>
+
 			<dependency>
 				<groupId>software.amazon.awssdk</groupId>
 				<artifactId>bom</artifactId>
@@ -39,16 +55,18 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
+
+	<!-- =============================== -->
+	<!-- Dependencies                    -->
+	<!-- =============================== -->
+
 	<dependencies>
 
-		<!-- =============================== -->
-		<!-- Spring Boot                    -->
-		<!-- =============================== -->
-
-		<!-- REST API -->
+		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
@@ -60,41 +78,30 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- Spring Security -->
+		<!-- Security -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+		<!-- OAuth2 Resource Server -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
 		</dependency>
 
-		<!-- Bean Validation -->
+		<!-- Validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-		<!-- Production monitoring -->
+		<!-- Actuator -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<!-- Development tools -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
-
-		<!-- =============================== -->
-		<!-- Database                        -->
-		<!-- =============================== -->
 
 		<!-- PostgreSQL -->
 		<dependency>
@@ -104,38 +111,14 @@
 		</dependency>
 
 
-		<!-- =============================== -->
-		<!-- AWS                              -->
-		<!-- =============================== -->
-
-		<!-- AWS SDK for Amazon S3 -->
+		<!-- AWS S3 -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
 		</dependency>
 
 
-		<!-- AWS S3 Presigner -->
-<!--		<dependency>-->
-<!--			<groupId>software.amazon.awssdk</groupId>-->
-<!--			<artifactId>s3-presigner</artifactId>-->
-<!--			<version>${aws.sdk.version}</version>-->
-<!--		</dependency>-->
-
-
-		<!-- =============================== -->
-		<!-- Lombok                           -->
-		<!-- =============================== -->
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-
-
-		<!-- Database migrations -->
+		<!-- Flyway -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-flyway</artifactId>
@@ -147,11 +130,24 @@
 		</dependency>
 
 
-		<!-- =============================== -->
-		<!-- Testing                          -->
-		<!-- =============================== -->
+		<!-- Lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-		<!-- Spring Boot testing -->
+
+		<!-- Development Tools -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+
+		<!-- Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -162,19 +158,20 @@
 
 
 	<!-- =============================== -->
-	<!-- Build                            -->
+	<!-- Build                           -->
 	<!-- =============================== -->
 
 	<build>
 		<plugins>
 
-			<!-- Spring Boot Maven Plugin -->
+			<!-- Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<!-- Maven Compiler Plugin -->
+
+			<!-- Maven Compiler -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -182,7 +179,6 @@
 				<configuration>
 					<annotationProcessorPaths>
 
-						<!-- Lombok annotation processor -->
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
@@ -190,7 +186,37 @@
 
 					</annotationProcessorPaths>
 				</configuration>
+			</plugin>
 
+
+			<!-- JaCoCo Code Coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+
+				<executions>
+
+					<!-- Attach JaCoCo before tests -->
+					<execution>
+						<id>prepare-agent</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+
+
+					<!-- Generate HTML/XML/CSV report -->
+					<execution>
+						<id>jacoco-report</id>
+						<phase>verify</phase>
+
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+
+				</executions>
 			</plugin>
 
 		</plugins>
